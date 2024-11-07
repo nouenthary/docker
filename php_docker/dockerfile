@@ -1,0 +1,31 @@
+# FROM php:7-apache
+
+# COPY . /var/www/php
+
+# Base PHP image with FPM (FastCGI Process Manager)
+FROM php:8.2-fpm
+
+# Install necessary PHP extensions
+RUN docker-php-ext-install  mysqli pdo pdo_mysql
+
+# Install Nginx
+RUN apt-get update && apt-get install -y nginx
+
+# Remove default Nginx configuration
+RUN rm /etc/nginx/sites-enabled/default
+
+# Copy custom Nginx config
+COPY nginx/default.conf /etc/nginx/sites-available/default
+
+# Copy PHP code
+COPY . /var/www/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx and PHP-FPM
+CMD service nginx start && php-fpm
+
+#    docker build -t php-demo .
+#    docker images
+#    docker run -p 80:8000 php-demo
