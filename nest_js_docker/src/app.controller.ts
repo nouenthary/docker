@@ -19,4 +19,17 @@ export class AppController {
       code: 200,
     };
   }
+
+  @Get('/api/protected-name')
+  async protectedName() {
+    // TODO: for loop 1 to 10
+    
+    
+
+    const response = await this.appService.getHello();
+
+    return {
+      data: '22',
+    };
+  }
 }

@@ -3,29 +3,46 @@
 # COPY . /var/www/php
 
 # Base PHP image with FPM (FastCGI Process Manager)
-FROM php:8.2-fpm
+# FROM php:8.2-fpm
 
 # Install necessary PHP extensions
-RUN docker-php-ext-install  mysqli pdo pdo_mysql
+# RUN docker-php-ext-install  mysqli pdo pdo_mysql
 
 # Install Nginx
-RUN apt-get update && apt-get install -y nginx
+# RUN apt-get update && apt-get install -y nginx
 
 # Remove default Nginx configuration
-RUN rm /etc/nginx/sites-enabled/default
+# RUN rm /etc/nginx/sites-enabled/default
 
 # Copy custom Nginx config
-COPY nginx/default.conf /etc/nginx/sites-available/default
+# COPY nginx/default.conf /etc/nginx/sites-available/default
 
 # Copy PHP code
-COPY . /var/www/html
+# COPY . /var/www/html
 
 # Expose port 80
-EXPOSE 80
+# EXPOSE 80
 
 # Start Nginx and PHP-FPM
-CMD service nginx start && php-fpm
+# CMD service nginx start && php-fpm
 
 #    docker build -t php-demo .
 #    docker images
 #    docker run -p 80:8000 php-demo
+
+
+FROM php:8.1-apache
+
+# Install any additional extensions you need
+RUN docker-php-ext-install pdo pdo_mysql
+
+# Copy project files to the container
+COPY . /var/www/html/
+
+# Set the working directory
+WORKDIR /var/www/html
+
+#   docker-compose build
+
+#    docker-compose up -d
+
