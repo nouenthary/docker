@@ -10,9 +10,9 @@ app.get("/", function(req, res) {
 app.get("/api", function(req, res) {
     return res.json({
         data: [
-            'apple', 'book', 'car'
+            'apple', 'book', 'car', 'door'
         ],
-        code: 200
+        code: 200,
     });
 });
 
