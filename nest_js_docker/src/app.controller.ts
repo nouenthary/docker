@@ -23,12 +23,11 @@ export class AppController {
   @Get('/api/protected-name')
   async protectedName() {
     // TODO: for loop 1 to 10
-    
-    
 
-    const response = await this.appService.getHello();
+    const responses = this.appService.getHello();
 
     return {
+      response: responses,
       data: '22',
     };
   }
